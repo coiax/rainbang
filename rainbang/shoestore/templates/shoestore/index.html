@@ -1,0 +1,9 @@
+<html>
+  <head></head>
+  <body>
+<h1>Shoes</h1>
+{% for shoe in shoes %}
+<a href="{% url 'shoe' shoe.id %}"><img src="{{shoe.image.url}}"></a><br>
+{% endfor %}
+  </body>
+</html>
