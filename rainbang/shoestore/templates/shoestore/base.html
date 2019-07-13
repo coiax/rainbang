@@ -1,0 +1,23 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Untitled Document{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static "shoestore/css/normalize.css" %}">
+  <link rel="stylesheet" href="{% static "shoestore/css/skeleton.css" %}">
+  <link rel="icon" type="image/png" href="{% static "shoestore/images/favicon.png" %}">
+
+</head>
+<body>
+  <div class="container">
+    {% block content %}
+    <h1>Lorem ipsum</h1>
+    <p>Vivamus pharetra dictum ultricies. Cras molestie tortor nunc, a ullamcorper mi elementum gravida. Aenean ac posuere dolor. Integer vel tincidunt purus, nec finibus odio. Phasellus fringilla vitae metus pulvinar aliquam. Pellentesque suscipit nisi quis nibh accumsan, a mollis est vestibulum. Cras justo nulla, blandit ut tristique sed, finibus quis ante. Cras et tortor lorem. Phasellus suscipit quam ut quam placerat cursus. Mauris porttitor vel lectus quis rhoncus.</p>
+    {% endblock %}
+  </div>
+</body>
+</html>

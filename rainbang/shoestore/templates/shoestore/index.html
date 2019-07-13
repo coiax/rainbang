@@ -1,9 +1,21 @@
-<html>
-  <head></head>
-  <body>
-<h1>Shoes</h1>
+{% extends "shoestore/base.html" %}
+
+{% block title %}Shoe Store 5000{% endblock %}
+
+{% block content %}
+
+<h1>Shoe Store 5000</h1>
+<p>Here at Shoe Store 5000, we have the latest fashions and styles. So
+  whether you're a professional businessman, instagram star or regular
+  human; we've got what you're looking for.</p>
+
+<h2>Check out our 🔥 hot 🔥 deals!</h2>
+
 {% for shoe in shoes %}
 <a href="{% url 'shoe' shoe.id %}"><img src="{{shoe.image.url}}"></a><br>
+{% empty %}
+<p>We've got no shoes on our internal shoe tracking system. Please try again
+  later!</p>
 {% endfor %}
-  </body>
-</html>
+
+{% endblock %}
