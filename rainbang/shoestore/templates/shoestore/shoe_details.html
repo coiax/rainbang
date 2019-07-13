@@ -1,0 +1,49 @@
+{% extends "shoestore/base.html" %}
+
+{% block end_of_header %}
+<style>
+img.preview {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+</style>
+{% endblock %}
+
+{% block title %}{{shoe.name}} - Shoe Store 5000{% endblock %}
+
+{% block content %}
+
+<h1>Shoe Store 5000</h1>
+
+<div class="row">
+  <div class="one-half column">
+    <img class="preview" src="{{image.url}}">
+  </div>
+  <div class="one-half column">
+      <h4>{{shoe.name}}</h2>
+      <h3 class="price">£{{shoe.selling_price}}</h3>
+      <h5> Colour: {{chosen_style.colour.name}}</h5>
+      <h5> Size: {{chosen_style.size}}</h5>
+      <h4> Styles: </h4>
+
+      {% regroup shoe.styles.all by colour as style_list %}
+
+      {% for colour, styles in style_list %}
+      <p><span>{{colour.name}}:</span>
+        {% for style in styles %}
+        <a class="button {% if style == chosen_style %}button-primary{% endif %}"
+          href="{% url 'shoe_with_style' shoe.id style.id %}">
+          {{style.size}}</a>
+        {% endfor %}
+      </p>
+      {% endfor %}
+  </div>
+</div>
+
+<p>{{shoe.description}}</p>
+
+<p class="button button-primary">Add to Basket</p>
+<a class="button" href="{% url 'index' %}">Back</a>
+
+{% endblock %}
