@@ -1,26 +1,47 @@
+from decimal import Decimal
+
 from django.db import models
 
 class Shoe(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(max_length=5000)
-    image = models.ImageField(max_length=5243000)
+    image = models.ImageField()
 
     cost_price = models.DecimalField(max_digits=20, decimal_places=5)
     selling_price = models.DecimalField(max_digits=20, decimal_places=5)
-    vat_rate = models.DecimalField(max_digits=7, decimal_places=5)
+
+    VAT_CHOICES = [
+        (0, "0%"),
+        (Decimal("0.20"), "20%"),
+    ]
+
+    vat_rate = models.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        choices=VAT_CHOICES,
+        default=Decimal("0.20"),
+        blank=False
+    )
 
     def __str__(self):
         return self.name
+
+class Colour(models.Model):
+    name = models.CharField(max_length=255)
+    hexcode = models.CharField(max_length=6)
+
+    def __str__(self):
+        return "{} ({})".format(self.name, self.hexcode)
 
 class Style(models.Model):
     shoe = models.ForeignKey(Shoe, on_delete=models.CASCADE,
                              related_name="styles")
 
-    colour = models.CharField(max_length=255)
-    hexcode = models.CharField(max_length=6)
+    colour = models.ForeignKey(Colour, on_delete=models.CASCADE,
+                               related_name="styles")
 
     # Overrides the shoe's image if present
-    image = models.ImageField(max_length=5243000, blank=True)
+    image = models.ImageField(blank=True)
 
     size = models.DecimalField(max_digits=3, decimal_places=1)
 
