@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import Shoe, Style
 
@@ -6,7 +7,17 @@ class StyleInline(admin.StackedInline):
     model = Style
 
 class ShoeAdmin(admin.ModelAdmin):
+    fields = ('name', 'description', 'image', 'image_preview',
+              ('cost_price', 'selling_price', 'vat_rate'))
+
+    readonly_fields = ["image_preview"]
     inlines = [StyleInline]
+    def image_preview(self, shoe):
+        fmt = '<img src="{url}" width="{width}" height="{height}">'
+        return mark_safe(fmt.format(
+            url=shoe.image.url,
+            width=shoe.image.width,
+            height=shoe.image.height))
 
 admin.site.register(Shoe, ShoeAdmin)
 
