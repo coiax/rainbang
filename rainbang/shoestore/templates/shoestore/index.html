@@ -12,10 +12,22 @@
 <h2>Check out our 🔥 hot 🔥 deals!</h2>
 
 {% for shoe in shoes %}
-<a href="{% url 'shoe' shoe.id %}"><img src="{{shoe.image.url}}"></a><br>
+
+{% if forloop.counter0|divisibleby:"3" %}
+  <div class="row">
+{% endif %}
+
+<div class="one-third column">
+  <a href="{% url 'shoe' shoe.id %}"><img src="{{shoe.image.url}}"></a><br>
+  <h4>{{shoe.name}} - £{{shoe.selling_price}}</h4>
+</div>
+{% if forloop.counter1|divisibleby:"3" or forloop.last %}
+  </div>
+{% endif %}
+
 {% empty %}
-<p>We've got no shoes on our internal shoe tracking system. Please try again
-  later!</p>
+  <p>We've got no shoes on our internal shoe tracking system. Please try again
+    later!</p>
 {% endfor %}
 
 {% endblock %}

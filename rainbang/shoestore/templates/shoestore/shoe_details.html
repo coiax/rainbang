@@ -1,15 +1,5 @@
 {% extends "shoestore/base.html" %}
 
-{% block end_of_header %}
-<style>
-img.preview {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-</style>
-{% endblock %}
-
 {% block title %}{{shoe.name}} - Shoe Store 5000{% endblock %}
 
 {% block content %}
@@ -24,7 +14,7 @@ img.preview {
       <h4>{{shoe.name}}</h2>
       <h3 class="price">£{{shoe.selling_price}}</h3>
       <h5> Colour: {{chosen_style.colour.name}}</h5>
-      <h5> Size: {{chosen_style.size}}</h5>
+      <h5> Size: {{chosen_style.size|floatformat}}</h5>
       <h4> Styles: </h4>
 
       {% regroup shoe.styles.all by colour as style_list %}
@@ -34,16 +24,17 @@ img.preview {
         {% for style in styles %}
         <a class="button {% if style == chosen_style %}button-primary{% endif %}"
           href="{% url 'shoe_with_style' shoe.id style.id %}">
-          {{style.size}}</a>
+          {{style.size|floatformat}}</a>
         {% endfor %}
       </p>
       {% endfor %}
+
+    <p class="button button-primary">Add to Basket</p>
+    <a class="button" href="{% url 'index' %}">Back</a>
   </div>
 </div>
 
 <p>{{shoe.description}}</p>
 
-<p class="button button-primary">Add to Basket</p>
-<a class="button" href="{% url 'index' %}">Back</a>
 
 {% endblock %}
