@@ -27,5 +27,5 @@ admin.site.register(Customer)
 from .models import Order
 admin.site.register(Order)
 
-from .models import OrderItem
-admin.site.register(OrderItem)
+from .models import Colour
+admin.site.register(Colour)
