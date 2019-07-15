@@ -13,7 +13,9 @@ class ShoeAdmin(admin.ModelAdmin):
     readonly_fields = ["image_preview"]
     inlines = [StyleInline]
     def image_preview(self, shoe):
-        fmt = '<img src="{url}" width="{width}" height="{height}">'
+        fmt = """<img
+        style="height: 100%; width: 100%; object-fit: cover;"
+        src="{url}" width="{width}" height="{height}">"""
         return mark_safe(fmt.format(
             url=shoe.image.url,
             width=shoe.image.width,
